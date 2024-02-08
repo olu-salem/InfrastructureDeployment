@@ -114,7 +114,8 @@ pipeline {
       stage("Docker Build & Push"){
             steps{
                 script{
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){ 
+                       sh 'cd spring-boot-app'  
                        sh 'docker build -t minecraft .'
                        sh 'docker tag minecraft dappyplay4u/minecraft:latest'
                        sh 'docker push dappyplay4u/minecraft:latest'
