@@ -12,6 +12,7 @@ pipeline {
     terraform 'terraform'
     maven 'localMaven'
     jdk 'localJdk'
+    docker 'docker'
   }
 
   stages {
@@ -141,7 +142,7 @@ pipeline {
               '''
           }
       }
-      
+
     stage('Build and Push Docker Image') {
       environment {
         awsAccountId = '568170370118'
