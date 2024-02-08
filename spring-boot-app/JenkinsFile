@@ -114,8 +114,8 @@ pipeline {
     stage('Install docker') {
           steps {
               sh '''
-                 sudo apt update
-                 sudo apt install docker.io -y
+                 sudo yum update
+                 sudo yum install docker.io -y
                  sudo systemctl start docker
                  sudo systemctl enable docker
                  sudo usermod -aG docker jenkins
