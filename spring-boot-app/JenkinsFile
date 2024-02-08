@@ -126,7 +126,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                        dir('minecraft') {
+                        dir('spring-boot-app ') {
                             sh 'docker build -t minecraft .'
                             sh 'docker tag minecraft dappyplay4u/minecraft:latest'
                             sh 'docker push dappyplay4u/minecraft:latest'
@@ -138,7 +138,7 @@ pipeline {
 
         stage('Deploy to container') {
             steps {
-                sh 'docker run -d -p 8070:8085 dappyplay4u/minecraft:latest'
+                sh 'docker run -d -p 8090:8085 dappyplay4u/minecraft:latest'
             }
         }
     stage('Build and Push Docker Image') {
