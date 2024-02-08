@@ -129,28 +129,27 @@ pipeline {
             }
         }
 
-    // stage('Build and Push Docker Image') {
-    //   environment {
-    //     awsAccountId = '568170370118'
-    //     region = 'us-east-1'
-    //     repositoryName = 'minecraft'
-    //     dockerImageTag = "${BUILD_NUMBER}"
-    //     ecrRegistry = "${awsAccountId}.dkr.ecr.${region}.amazonaws.com"
-    //   }
-    //   steps {
-    //     script {
-    //         sh "cd spring-boot-app && docker build -t ${repositoryName}:${dockerImageTag} ."
+    stage('Build and Push Docker Image') {
+      environment {
+        awsAccountId = '568170370118'
+        region = 'us-east-1'
+        repositoryName = 'minecraft'
+        dockerImageTag = "${BUILD_NUMBER}"
+        ecrRegistry = "${awsAccountId}.dkr.ecr.${region}.amazonaws.com"
+      }
+      steps {
+        script {
+            // sh "cd spring-boot-app && docker build -t ${repositoryName}:${dockerImageTag} ."
 
-    //         // Authenticate and push the Docker image to ECR
-    //             sh "aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrRegistry}"
-    //             sh "docker tag ${repositoryName}:${dockerImageTag} ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
-    //             sh "docker push ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
-    //             sh "docker rmi ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
-    //             sh " docker rmi ${repositoryName}:${dockerImageTag}"
-    //   }
-    // }
+            // // Authenticate and push the Docker image to ECR
+            //     sh "aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrRegistry}"
+            //     sh "docker tag ${repositoryName}:${dockerImageTag} ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
+                sh "docker push ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
+                // sh "docker rmi ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
+                // sh " docker rmi ${repositoryName}:${dockerImageTag}"
+      }
+    }
 
-    // } 
     
     stage('Install kubectl') {
             steps {
