@@ -11,6 +11,7 @@ pipeline {
     terraform 'terraform'
     maven 'localMaven'
     jdk 'localJdk'
+    docker 'docker'
   }
 
   stages {
