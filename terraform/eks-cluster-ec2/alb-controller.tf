@@ -8,7 +8,7 @@ module "aws_load_balancer_controller_irsa_role" {
 
   oidc_providers = {
     ex = {
-      provider_arn               = aws_iam_openid_connect_provider.eks.arn
+      provider_arn               = aws_iam_openid_connect_provider.minecraft-eks-cluster.arn
       namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
     }
   }

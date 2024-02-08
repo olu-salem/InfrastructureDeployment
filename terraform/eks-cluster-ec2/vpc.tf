@@ -11,8 +11,7 @@ resource "aws_vpc" "minecraft-eks-cluster-main" {
   # Must be enabled for EFS
   enable_dns_support   = true
   enable_dns_hostnames = true
-  domain = true
-
+  
   tags = {
     Name = "minecraft-VPC"
   }
@@ -89,7 +88,7 @@ resource "aws_subnet" "public-us-east-1b" {
 
 
 resource "aws_eip" "minecraft-eks-cluster-nat" {
-  vpc = true
+  vpc_id = true
 
   tags = {
     Name = "minecraft-nat"
