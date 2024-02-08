@@ -114,10 +114,11 @@ pipeline {
     stage('Install docker') {
           steps {
               sh '''
-                  sh "sudo yum install docker -y" 
-                  sh "sudo systemctl start docker"
-                  sh "sudo systemctl  enable docker"
-                  sh "sudo usermod -a -G docker jenkins"
+                 sudo apt update
+                 sudo apt install docker.io -y
+                 sudo systemctl start docker
+                 sudo systemctl enable docker
+                 sudo usermod -aG docker jenkins
               '''
           }
       }
