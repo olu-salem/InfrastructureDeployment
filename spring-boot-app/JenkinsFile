@@ -111,17 +111,6 @@ pipeline {
     //   }
     // }
 
-
-    stage('Install docker') {
-          steps {
-              sh '''
-                  sh "sudo yum install docker -y" 
-                  sh "sudo systemctl start docker"
-                  sh "sudo systemctl  enable docker"
-                  sh "sudo usermod -a -G docker jenkins"
-              '''
-          }
-      }
     stage("Docker Build & Push") {
             steps {
                 script {
@@ -141,6 +130,18 @@ pipeline {
                 sh 'docker run -d -p 8090:8085 dappyplay4u/minecraft:latest'
             }
         }
+
+    stage('Install docker') {
+          steps {
+              sh '''
+                  sh "sudo yum install docker -y" 
+                  sh "sudo systemctl start docker"
+                  sh "sudo systemctl  enable docker"
+                  sh "sudo usermod -a -G docker jenkins"
+              '''
+          }
+      }
+      
     stage('Build and Push Docker Image') {
       environment {
         awsAccountId = '568170370118'
