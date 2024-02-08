@@ -118,7 +118,6 @@ pipeline {
                        sh 'cd spring-boot-app && docker build -t minecraft .'
                        sh 'docker tag minecraft dappyplay4u/minecraft:latest'
                        sh 'docker push dappyplay4u/minecraft:latest'
-                       sh 'docker push 568170370118.dkr.ecr.us-east-1.amazonaws.com/minecraft:latest'
                     }
                 }
             }
