@@ -1,143 +1,181 @@
 pipeline {
-    agent any
+  agent any
   
-    environment {
-        WORKSPACE = "${env.WORKSPACE}"
+  environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
     }
 
-    tools {
-        terraform 'terraform'
-        maven 'localMaven'
-        jdk 'localJdk'
-        docker 'docker'
+  tools {
+    terraform 'terraform'
+    maven 'localMaven'
+    jdk 'localJdk'
+  }
+
+  stages {
+    stage('Git Checkout') {
+      steps {
+        echo 'Cloning the application code...'
+        git branch: 'main', url: 'https://github.com/Dappyplay4u/springboot.git'
+      }
     }
 
-    stages {
-        stage('Git Checkout') {
-            steps {
-                echo 'Cloning the application code...'
-                git branch: 'main', url: 'https://github.com/Dappyplay4u/springboot.git'
-            }
-        }
+    stage('create eks cluster') {
+     steps {
+       script{
+         dir ('terraform/eks-cluster-ec2') {
+           sh 'terraform init'
+           sh 'terraform fmt'
+           sh 'terraform validate'
+           sh 'terraform plan -out=tfplan'
+           stash includes: 'tfplan', name: 'terraform-plan'
+         }
+       }
+     }
+     post {
+         success {
+             archiveArtifacts artifacts: 'terraform/eks-cluster-ec2/tfplan', onlyIfSuccessful: true
+         }
+    }
 
-        stage('Create EKS Cluster') {
-            steps {
-                script {
-                    dir('terraform/eks-cluster-ec2') {
-                        sh 'terraform init'
-                        sh 'terraform fmt'
-                        sh 'terraform validate'
-                        sh 'terraform plan -out=tfplan'
-                        stash includes: 'tfplan', name: 'terraform-plan'
-                    }
-                }
-            }
-            post {
-                success {
-                    archiveArtifacts artifacts: 'terraform/eks-cluster-ec2/tfplan', onlyIfSuccessful: true
-                }
-            }
-        }
+    }
 
-        stage('Approval') {
+    stage('approval') {
             steps {
                 input "Please review the Terraform plan and click 'Proceed' to apply it"
             }
         }
 
-        stage('Apply Terraform') {
-            steps {
-                script {
-                    dir('terraform/eks-cluster-ec2') {
-                        unstash 'terraform-plan'
-                        sh 'terraform apply -auto-approve tfplan'
-                    }
-                }
+    stage('apply') {
+        steps {
+          script{
+            dir ('terraform/eks-cluster-ec2') {
+            unstash 'terraform-plan'
+            sh 'terraform apply -auto-approve tfplan'
             }
         }
+    }
 
-        stage('Build and Test') {
-            steps {
-                sh 'cd spring-boot-app && mvn -U clean package'
-            }
-        }
-        
-        stage('Unit Test') {
-            steps {
-                sh 'cd spring-boot-app && mvn test'
-            }
-        }
-        
-        stage('Integration Test') {
-            steps {
-                sh 'cd spring-boot-app && mvn verify -DskipUnitTests'
-            }
-        }
-        
-        stage('Checkstyle Code Analysis') {
-            steps {
-                sh 'cd spring-boot-app && mvn checkstyle:checkstyle'
-            }
-            post {
-                success {
-                    echo 'Generated Analysis Result'
-                }
-            }
-        }
-        
-        stage('Static Code Analysis') {
-            environment {
-                SONAR_URL = "http://3.238.3.76:9000/"
-            }
-            steps {
-                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_AUTH_TOKEN')]) {
-                    sh 'cd spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
-                }
-            }
-        }
+    }
 
-        stage('Deploy to Container') {
-            steps {
-                sh 'docker run -d -p 8090:8085 dappyplay4u/minecraft:latest'
+    stage('Build and Test') {
+      steps {
+        // sh 'ls -ltr'
+        // builds the project and create a JAR file
+        sh 'cd spring-boot-app && mvn -U clean package'
+      }
+      
+    }
+    
+    stage('Unit Test') {
+         steps {
+             sh 'cd spring-boot-app && mvn test'
+         }
+       }
+    stage('Integration Test') {
+        steps {
+            sh 'cd spring-boot-app && mvn verify -DskipUnitTests'
+        }
+    }
+    stage('Checkstyle Code Analysis') {
+        steps {
+            sh 'cd spring-boot-app && mvn checkstyle:checkstyle'
+        }
+        post {
+            success {
+                echo 'Generated Analysis Result'
             }
         }
-
-        stage('Build and Push Docker Image') {
-            environment {
-                awsAccountId = '568170370118'
-                region = 'us-east-1'
-                repositoryName = 'minecraft'
-                dockerImageTag = "${BUILD_NUMBER}"
-                ecrRegistry = "${awsAccountId}.dkr.ecr.${region}.amazonaws.com"
-            }
-            steps {
-                script {
-                    sh "cd spring-boot-app && docker build -t ${repositoryName}:${dockerImageTag} ."
-                    sh "aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrRegistry}"
-                    sh "docker tag ${repositoryName}:${dockerImageTag} ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
-                    sh "docker push ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
-                    sh "docker rmi ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
-                    sh "docker rmi ${repositoryName}:${dockerImageTag}"
-                }
-            }
+    }
+    stage('Static Code Analysis') {
+      environment {
+        SONAR_URL = "http://3.238.3.76:9000/"
+      }
+      steps {
+        withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_AUTH_TOKEN')]) {
+          sh 'cd spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
+      }
+    }
 
-        stage('Install kubectl') {
+    // stage('Upload artifact to Nexus') {
+    //    steps {
+    //        withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USER_NAME')]) {
+    //        sh "sed -i \"s/.*<username><\\/username>/<username>$USER_NAME<\\/username>/g\" ${WORKSPACE}/nexus-setup/settings.xml"
+    //        sh "sed -i \"s/.*<password><\\/password>/<password>$PASSWORD<\\/password>/g\" ${WORKSPACE}/nexus-setup/settings.xml"
+    //        sh 'sudo cp ${WORKSPACE}/nexus-setup/settings.xml /var/lib/jenkins/.m2'
+    //        sh 'cd spring-boot-app && mvn clean deploy -DskipTests'
+    //        }
+          
+    //    }
+    //  }
+
+    stage('Install docker') {
+          steps {
+              sh '''
+                  sh "sudo yum install docker -y" 
+                  sh "sudo systemctl start docker"
+                  sh "sudo systemctl  enable docker"
+                  sh "sudo usermod -a -G docker jenkins"
+              '''
+          }
+      }
+
+    stage('Build and Push Docker Image') {
+      environment {
+        awsAccountId = '568170370118'
+        region = 'us-east-1'
+        repositoryName = 'minecraft'
+        dockerImageTag = "${BUILD_NUMBER}"
+        ecrRegistry = "${awsAccountId}.dkr.ecr.${region}.amazonaws.com"
+      }
+      steps {
+        script {
+
+            // // Install docker on jenkins server
+
+            // sh "sudo yum install docker -y" 
+            // sh "sudo systemctl start docker"
+            // sh "sudo systemctl  enable docker"
+            // sh "sudo usermod -a -G docker jenkins"
+            // Build the Docker image
+            sh "cd spring-boot-app && docker build -t ${repositoryName}:${dockerImageTag} ."
+
+            // Authenticate and push the Docker image to ECR
+                sh "aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${ecrRegistry}"
+                sh "docker tag ${repositoryName}:${dockerImageTag} ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
+                sh "docker push ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
+                sh "docker rmi ${ecrRegistry}/${repositoryName}:${dockerImageTag}"
+                sh " docker rmi ${repositoryName}:${dockerImageTag}"
+      }
+    }
+
+    } 
+    
+    stage('Install kubectl') {
             steps {
                 sh '''
+                    # Specify the kubectl version
                     KUBECTL_VERSION="v1.24.0"
+
+                    # Download kubectl binary
                     curl -LO "https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
-                    chmod +x kubectl
+
+                    # Make the kubectl binary executable
+                    sudo chmod +x kubectl
+
+                    # Move kubectl binary to a directory in the PATH
                     sudo mv kubectl /usr/local/bin/
                 '''
             }
         }
         
-        stage("Deploy to EKS"){
+
+    stage("Deploy to EKS"){
         environment {
         region = 'us-east-1'
-        clusterName = 'Minecraft-eks-cluster'
+        clusterName = 'minecraft-eks-cluster'
       }       
         steps {  
           script {
@@ -149,7 +187,7 @@ pipeline {
         }
       }
     }
-
+  
     stage('approve destroy for terraform') {
             steps {
                 input "Do you want to Proceed to destroy terraform resources"
@@ -169,6 +207,3 @@ pipeline {
 
   }
 }
-
-
-
