@@ -16,9 +16,32 @@
             <id>nexus-releases</id>
             <url>http://10.0.1.122:8081/repository/maven-releases/</url>
         </repository>
+        <!-- Add Maven Central Repository -->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <!-- Add Spring Boot Starter Web dependency -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.6.3</version> <!-- Adjust version as needed -->
+        </dependency>
+        
+        <!-- Add Spring Boot Starter Test dependency if needed -->
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <version>2.6.3</version> <!-- Adjust version as needed -->
+        </dependency>
+        -->
+
+        <!-- Add Paper dependency (assuming it's needed alongside Spring Boot) -->
         <dependency>
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
