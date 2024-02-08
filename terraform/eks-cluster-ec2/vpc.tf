@@ -88,7 +88,7 @@ resource "aws_subnet" "public-us-east-1b" {
 
 
 resource "aws_eip" "minecraft-eks-cluster-nat" {
-  vpc_id = true
+  vpc = true
 
   tags = {
     Name = "minecraft-nat"
@@ -130,7 +130,7 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.minecraft-eks-cluster-main.id
 
   route {
     cidr_block = "0.0.0.0/0"
