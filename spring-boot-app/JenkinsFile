@@ -125,7 +125,7 @@ pipeline {
       
         stage('Deploy to container') {
             steps {
-                sh 'docker run -d -p 8075:8080 dappyplay4u/minecraft:latest'
+                sh 'docker run -d -p 8095:8088 dappyplay4u/minecraft:latest'
             }
         }
     
