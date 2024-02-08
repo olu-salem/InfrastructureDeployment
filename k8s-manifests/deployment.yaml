@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft
+  labels:
+    app: minecraft-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: minecraft-app
+  template:
+    metadata:
+      labels:
+        app: minecraft-app
+    spec:
+      containers:
+      - name: minecraft-app
+        image: 568170370118.dkr.ecr.us-east-1.amazonaws.com/minecraft:replaceImageTag
+        ports:
+        - containerPort: 8080
