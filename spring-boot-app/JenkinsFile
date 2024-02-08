@@ -111,21 +111,18 @@ pipeline {
           
     //    }
     //  }
-
-      stage("Docker Build & Push") {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                        dir('spring-boot-app') {
-                            sh 'docker build -t minecraft .'
-                            sh 'docker tag minecraft dappyplay4u/minecraft:latest'
-                            sh 'docker push dappyplay4u/minecraft:latest'
-                        }
+      stage("Docker Build & Push"){
+            steps{
+                script{
+                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
+                       sh 'docker build -t minecraft .'
+                       sh 'docker tag minecraft dappyplay4u/minecraft:latest'
+                       sh 'docker push dappyplay4u/minecraft:latest'
                     }
                 }
             }
         }
-
+      
         stage('Deploy to container') {
             steps {
                 sh 'docker run -d -p 8090:8085 dappyplay4u/minecraft:latest'
