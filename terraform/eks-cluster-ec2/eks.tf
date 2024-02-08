@@ -69,7 +69,7 @@ resource "aws_eks_cluster" "minecraft-eks-cluster" {
   role_arn = aws_iam_role.minecraft-eks-cluster.arn
 
   vpc_config {
-    security_group_ids      = [aws_security_group.minecraft-eks-cluster.id]
+    security_group_ids      = [aws_security_group.minecraft-cluster.id]
     endpoint_private_access = false
     endpoint_public_access  = true
     public_access_cidrs     = ["0.0.0.0/0"]
