@@ -2,7 +2,7 @@
 # This control plane can be used to attach self-managed, 
 # and aws managed nodes as well as you can create Fargate profiles.
 
-resource "aws_security_group" "minecraft_cluster" {
+resource "aws_security_group" "minecraft-eks-cluster" {
   name        = "minecraft-EKS-cluster-sg"
   description = "Cluster communication with worker nodes"
   vpc_id      = aws_vpc.minecraft-eks-cluster-main.id
@@ -69,7 +69,7 @@ resource "aws_eks_cluster" "minecraft-eks-cluster" {
   role_arn = aws_iam_role.minecraft-eks-cluster.arn
 
   vpc_config {
-    security_group_ids      = [aws_security_group.minecraft-cluster.id]
+    security_group_ids      = [aws_security_group.minecraft-eks-cluster.id]
     endpoint_private_access = false
     endpoint_public_access  = true
     public_access_cidrs     = ["0.0.0.0/0"]
