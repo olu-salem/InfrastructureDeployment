@@ -111,22 +111,25 @@ pipeline {
     //    }
     //  }
 
-    stage('Install docker') {
-          steps {
-              sh '''
-                 sudo usermod -aG docker jenkins
-                 
-                 sudo yum update
-                 sudo yum install docker.io -y
+      stage("Docker Build & Push") {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        dir('spring-boot-app') {
+                            sh 'docker build -t minecraft .'
+                            sh 'docker tag minecraft dappyplay4u/minecraft:latest'
+                            sh 'docker push dappyplay4u/minecraft:latest'
+                        }
+                    }
+                }
+            }
+        }
 
-                 sudo systemctl start docker
-
-                 sudo systemctl enable docker
-
-                 sudo usermod -aG docker jenkins
-              '''
-          }
-      }
+        stage('Deploy to container') {
+            steps {
+                sh 'docker run -d -p 8090:8085 dappyplay4u/minecraft:latest'
+            }
+        }
 
     stage('Build and Push Docker Image') {
       environment {
@@ -138,14 +141,6 @@ pipeline {
       }
       steps {
         script {
-
-            // // Install docker on jenkins server
-
-            // sh "sudo yum install docker -y" 
-            // sh "sudo systemctl start docker"
-            // sh "sudo systemctl  enable docker"
-            // sh "sudo usermod -a -G docker jenkins"
-            // Build the Docker image
             sh "cd spring-boot-app && docker build -t ${repositoryName}:${dockerImageTag} ."
 
             // Authenticate and push the Docker image to ECR
