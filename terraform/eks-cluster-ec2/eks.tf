@@ -5,7 +5,7 @@
 resource "aws_security_group" "minecraft_cluster" {
   name        = "minecraft-EKS-cluster-sg"
   description = "Cluster communication with worker nodes"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = aws_vpc.minecraft-eks-cluster-main.id
 
   dynamic "ingress" {
     for_each = var.ingress_ports
@@ -63,7 +63,7 @@ resource "aws_iam_role_policy_attachment" "minecraft-eks-cluster-policy" {
 # specify two private and two public subnets. AWS Fargate can only use private subnets with NAT gateway to deploy your pods. 
 # Public subnets can be used for load balancers to expose your application to the internet.
 
-resource "aws_eks_cluster" "minecraft-cluster" {
+resource "aws_eks_cluster" "minecraft-eks-cluster" {
   name     = var.cluster_name
   version  = var.cluster_version
   role_arn = aws_iam_role.minecraft-eks-cluster.arn

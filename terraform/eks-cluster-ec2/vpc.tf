@@ -22,7 +22,7 @@ resource "aws_vpc" "minecraft-eks-cluster-main" {
 # and indirectly from private subnets by using a NAT gateway.
 
 resource "aws_internet_gateway" "minecraft-eks-cluster-igw" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.minecraft-eks-cluster-main.id
 
   tags = {
     Name = "minecraft-igw"
