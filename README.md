@@ -225,6 +225,18 @@ Once both the above steps are done click on Save.
 - click to create repository (private) --> Provide repo name (jjtech-demo) --> create repo
 - click on **view push commands** to get username and password to push images to repo
 
+
+ #### Credentials setup(Docker:
+    - Click on Manage Jenkins --> Manage Credentials --> Global credentials (unrestricted) --> Add Credentials
+
+        1)  #### Docker username/password (docker)
+            - Kind: username/password :
+            - Username: Fill the from docker hub
+            -password: docker user password
+            - ID: docker
+            - Description: docker
+            - Click on Create
+
 ### Update aws cli to version 2
 - ssh into jenkins server and query version of aws cli by running "aws --version", if version 1, update with below commands
 - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"

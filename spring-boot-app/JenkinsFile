@@ -3,6 +3,8 @@ pipeline {
   
   environment {
         WORKSPACE = "${env.WORKSPACE}"
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
     }
 
@@ -120,7 +122,25 @@ pipeline {
               '''
           }
       }
+    stage("Docker Build & Push") {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        dir('minecraft') {
+                            sh 'docker build -t minecraft .'
+                            sh 'docker tag minecraft dappyplay4u/minecraft:latest'
+                            sh 'docker push dappyplay4u/minecraft:latest'
+                        }
+                    }
+                }
+            }
+        }
 
+        stage('Deploy to container') {
+            steps {
+                sh 'docker run -d -p 8070:8085 dappyplay4u/minecraft:latest'
+            }
+        }
     stage('Build and Push Docker Image') {
       environment {
         awsAccountId = '568170370118'
