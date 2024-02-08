@@ -1,6 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
@@ -10,12 +9,8 @@
 
     <repositories>
         <repository>
-            <id>nexus-snapshots</id>
-            <url>http://10.0.1.122:8081/repository/maven-snapshots/</url>
-        </repository>
-        <repository>
-            <id>nexus-releases</id>
-            <url>http://10.0.1.122:8081/repository/maven-releases/</url>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -23,7 +18,7 @@
         <dependency>
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.16.5-R0.1-SNAPSHOT</version> <!-- Adjust version as needed -->
             <scope>provided</scope>
         </dependency>
     </dependencies>
