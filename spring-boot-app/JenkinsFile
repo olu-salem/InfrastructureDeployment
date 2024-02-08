@@ -97,35 +97,9 @@ pipeline {
             }
         }
 
-        // stage("Docker Build & Push") {
-        //     steps {
-        //         script {
-        //             withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-        //                 dir('spring-boot-app') {
-        //                     sh 'docker build -t minecraft .'
-        //                     sh 'docker tag minecraft dappyplay4u/minecraft:latest'
-        //                     sh 'docker push dappyplay4u/minecraft:latest'
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-
         stage('Deploy to Container') {
             steps {
                 sh 'docker run -d -p 8090:8085 dappyplay4u/minecraft:latest'
-            }
-        }
-
-        stage('Install Docker') {
-            steps {
-            sh '''
-            sudo apt update
-            sudo apt install docker.io -y
-            sudo systemctl start docker
-            sudo systemctl enable docker
-            sudo usermod -aG docker jenkins
-        '''
             }
         }
 
@@ -159,7 +133,7 @@ pipeline {
                 '''
             }
         }
-
+        
         stage("Deploy to EKS"){
         environment {
         region = 'us-east-1'
