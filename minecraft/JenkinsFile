@@ -95,27 +95,27 @@ pipeline {
       }
       steps {
         withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_AUTH_TOKEN')]) {
-          sh 'cd spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+          sh 'cd minecraft && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
       }
     }
 
-    // stage('Upload artifact to Nexus') {
-    //    steps {
-    //        withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USER_NAME')]) {
-    //        sh "sed -i \"s/.*<username><\\/username>/<username>$USER_NAME<\\/username>/g\" ${WORKSPACE}/nexus-setup/settings.xml"
-    //        sh "sed -i \"s/.*<password><\\/password>/<password>$PASSWORD<\\/password>/g\" ${WORKSPACE}/nexus-setup/settings.xml"
-    //        sh 'sudo cp ${WORKSPACE}/nexus-setup/settings.xml /var/lib/jenkins/.m2'
-    //        sh 'cd spring-boot-app && mvn clean deploy -DskipTests'
-    //        }
+    stage('Upload artifact to Nexus') {
+       steps {
+           withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USER_NAME')]) {
+           sh "sed -i \"s/.*<username><\\/username>/<username>$USER_NAME<\\/username>/g\" ${WORKSPACE}/nexus-setup/settings.xml"
+           sh "sed -i \"s/.*<password><\\/password>/<password>$PASSWORD<\\/password>/g\" ${WORKSPACE}/nexus-setup/settings.xml"
+           sh 'sudo cp ${WORKSPACE}/nexus-setup/settings.xml /var/lib/jenkins/.m2'
+           sh 'cd spring-boot-app && mvn clean deploy -DskipTests'
+           }
           
-    //    }
-    //  }
+       }
+     }
       stage("Docker Build & Push to dockerhub"){
             steps{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){ 
-                       sh 'cd spring-boot-app && docker build -t minecraft .'
+                       sh 'cd minecraft && docker build -t minecraft .'
                        sh 'docker tag minecraft dappyplay4u/minecraft:latest'
                        sh 'docker push dappyplay4u/minecraft:latest'
                     }
