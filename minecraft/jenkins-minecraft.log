@@ -1423,35 +1423,6 @@ Running in /var/lib/jenkins/workspace/minecraft-deployment/terraform/eks-cluster
 [0m[1maws_eks_node_group.eks_node_group: Still creating... [50s elapsed][0m[0m
 [0m[1maws_eks_node_group.eks_node_group: Still creating... [1m0s elapsed][0m[0m
 [0m[1maws_eks_node_group.eks_node_group: Still creating... [1m10s elapsed][0m[0m
-Running in /var/lib/jenkins/workspace/Minecraft-infra/terraform/eks-cluster-ec2
-[Pipeline] {
-[Pipeline] unstash
-[Pipeline] sh
-+ terraform apply -auto-approve tfplan
-[0m[1m[32m
-Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
-[0m
-[Pipeline] }
-[Pipeline] // dir
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // withEnv
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Build and Test)
-[Pipeline] tool
-[Pipeline] envVarsForTool
-[Pipeline] tool
-[Pipeline] envVarsForTool
-[Pipeline] tool
-[Pipeline] envVarsForTool
-[Pipeline] tool
-[Pipeline] envVarsForTool
-[Pipeline] withEnv
-[Pipeline] {
-[Pipeline] sh
 + cd spring-boot-app
 + mvn -U clean package
 [INFO] Scanning for projects...
@@ -1462,18 +1433,17 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.2.0:clean (default-clean) @ minecraft-server ---
-[INFO] Deleting /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/target
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ minecraft-server ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/src/main/resources
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/src/main/resources
 [INFO] 
 [INFO] --- compiler:3.11.0:compile (default-compile) @ minecraft-server ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ minecraft-server ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/src/test/resources
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ minecraft-server ---
 [INFO] No sources to compile
@@ -1483,12 +1453,12 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 [INFO] 
 [INFO] --- jar:3.3.0:jar (default-jar) @ minecraft-server ---
 [WARNING] JAR will be empty - no content was marked for inclusion!
-[INFO] Building jar: /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/target/minecraft-server-1.0.0.jar
+[INFO] Building jar: /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/target/minecraft-server-1.0.0.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  2.403 s
-[INFO] Finished at: 2024-02-08T22:28:21Z
+[INFO] Total time:  3.532 s
+[INFO] Finished at: 2024-02-08T23:44:42Z
 [INFO] ------------------------------------------------------------------------
 [Pipeline] }
 [Pipeline] // withEnv
@@ -1518,14 +1488,14 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ minecraft-server ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/src/main/resources
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/src/main/resources
 [INFO] 
 [INFO] --- compiler:3.11.0:compile (default-compile) @ minecraft-server ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ minecraft-server ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/src/test/resources
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ minecraft-server ---
 [INFO] No sources to compile
@@ -1535,8 +1505,8 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  1.919 s
-[INFO] Finished at: 2024-02-08T22:28:26Z
+[INFO] Total time:  1.629 s
+[INFO] Finished at: 2024-02-08T23:44:48Z
 [INFO] ------------------------------------------------------------------------
 [Pipeline] }
 [Pipeline] // withEnv
@@ -1566,14 +1536,14 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ minecraft-server ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/src/main/resources
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/src/main/resources
 [INFO] 
 [INFO] --- compiler:3.11.0:compile (default-compile) @ minecraft-server ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ minecraft-server ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/src/test/resources
+[INFO] skip non existing resourceDirectory /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ minecraft-server ---
 [INFO] No sources to compile
@@ -1586,8 +1556,8 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  1.957 s
-[INFO] Finished at: 2024-02-08T22:28:31Z
+[INFO] Total time:  2.112 s
+[INFO] Finished at: 2024-02-08T23:44:54Z
 [INFO] ------------------------------------------------------------------------
 [Pipeline] }
 [Pipeline] // withEnv
@@ -1619,8 +1589,8 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  2.065 s
-[INFO] Finished at: 2024-02-08T22:28:36Z
+[INFO] Total time:  3.221 s
+[INFO] Finished at: 2024-02-08T23:45:00Z
 [INFO] ------------------------------------------------------------------------
 Post stage
 [Pipeline] echo
@@ -1662,27 +1632,27 @@ Masking supported pattern matches of $SONAR_AUTH_TOKEN
 [INFO] SonarQube version: 8.3.0
 [INFO] Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
 [INFO] Load global settings
-[INFO] Load global settings (done) | time=116ms
+[INFO] Load global settings (done) | time=126ms
 [INFO] Server id: 86E1FA4D-AY2JA7ZA3Bx0CXKSR8jN
 [INFO] User cache: /var/lib/jenkins/.sonar/cache
 [INFO] Load/download plugins
 [INFO] Load plugins index
-[INFO] Load plugins index (done) | time=180ms
-[INFO] Load/download plugins (done) | time=258ms
+[INFO] Load plugins index (done) | time=103ms
+[INFO] Load/download plugins (done) | time=275ms
 [INFO] Process project properties
-[INFO] Process project properties (done) | time=10ms
+[INFO] Process project properties (done) | time=27ms
 [INFO] Execute project builders
-[INFO] Execute project builders (done) | time=4ms
+[INFO] Execute project builders (done) | time=14ms
 [INFO] Project key: com.abhishek:minecraft-server
-[INFO] Base dir: /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app
-[INFO] Working dir: /var/lib/jenkins/workspace/Minecraft-infra/spring-boot-app/target/sonar
+[INFO] Base dir: /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app
+[INFO] Working dir: /var/lib/jenkins/workspace/minecraft-deployment/spring-boot-app/target/sonar
 [INFO] Load project settings for component key: 'com.abhishek:minecraft-server'
-[INFO] Load project settings for component key: 'com.abhishek:minecraft-server' (done) | time=12ms
+[INFO] Load project settings for component key: 'com.abhishek:minecraft-server' (done) | time=17ms
 [INFO] Load quality profiles
-[INFO] Load quality profiles (done) | time=53ms
+[INFO] Load quality profiles (done) | time=69ms
 [INFO] Auto-configuring with CI 'Jenkins'
 [INFO] Load active rules
-[INFO] Load active rules (done) | time=531ms
+[INFO] Load active rules (done) | time=626ms
 [INFO] Indexing files...
 [INFO] Project configuration:
 [INFO] 1 file indexed
@@ -1690,7 +1660,7 @@ Masking supported pattern matches of $SONAR_AUTH_TOKEN
 [INFO] Quality profile for xml: Sonar way
 [INFO] ------------- Run sensors on module minecraft-server
 [INFO] Load metrics repository
-[INFO] Load metrics repository (done) | time=20ms
+[INFO] Load metrics repository (done) | time=18ms
 WARNING: An illegal reflective access operation has occurred
 WARNING: Illegal reflective access by net.sf.cglib.core.ReflectUtils$1 (file:/var/lib/jenkins/.sonar/cache/54f6535c111cefad0fb6a09ba3e61922/sonar-javascript-plugin.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
 WARNING: Please consider reporting this to the maintainers of net.sf.cglib.core.ReflectUtils$1
@@ -1698,38 +1668,219 @@ WARNING: Use --illegal-access=warn to enable warnings of further illegal reflect
 WARNING: All illegal access operations will be denied in a future release
 [INFO] Sensor SonarCSS Rules [cssfamily]
 [INFO] No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
-[INFO] Sensor SonarCSS Rules [cssfamily] (done) | time=2ms
+[INFO] Sensor SonarCSS Rules [cssfamily] (done) | time=3ms
 [INFO] Sensor JaCoCo XML Report Importer [jacoco]
 [INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
 [INFO] No report imported, no coverage information will be imported by JaCoCo XML Report Importer
-[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=4ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=3ms
 [INFO] Sensor JavaXmlSensor [java]
 [INFO] 1 source files to be analyzed
 [INFO] Load project repositories
-[INFO] Load project repositories (done) | time=29ms
+[INFO] Load project repositories (done) | time=26ms
 [INFO] 1/1 source files have been analyzed
-[INFO] Sensor JavaXmlSensor [java] (done) | time=270ms
+[INFO] Sensor JavaXmlSensor [java] (done) | time=248ms
 [INFO] Sensor HTML [web]
-[INFO] Sensor HTML [web] (done) | time=4ms
+[INFO] Sensor HTML [web] (done) | time=5ms
 [INFO] Sensor XML Sensor [xml]
 [INFO] 1 source files to be analyzed
 [INFO] 1/1 source files have been analyzed
-[INFO] Sensor XML Sensor [xml] (done) | time=245ms
+[INFO] Sensor XML Sensor [xml] (done) | time=226ms
 [INFO] ------------- Run sensors on project
 [INFO] Sensor Zero Coverage Sensor
 [INFO] Sensor Zero Coverage Sensor (done) | time=1ms
 [INFO] CPD Executor Calculating CPD for 0 files
 [INFO] CPD Executor CPD calculation finished (done) | time=0ms
-[INFO] Analysis report generated in 144ms, dir size=83 KB
-[INFO] Analysis report compressed in 33ms, zip size=11 KB
-[INFO] Analysis report uploaded in 22ms
+[INFO] Analysis report generated in 171ms, dir size=83 KB
+[INFO] Analysis report compressed in 38ms, zip size=11 KB
+[INFO] Analysis report uploaded in 31ms
 [INFO] ANALYSIS SUCCESSFUL, you can browse http://3.238.3.76:9000/dashboard?id=com.abhishek%3Aminecraft-server
 [INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
-[INFO] More about the report processing at http://3.238.3.76:9000/api/ce/task?id=AY2K1ndl3Bx0CXKSR_BX
-[INFO] Analysis total time: 4.848 s
+[INFO] More about the report processing at http://3.238.3.76:9000/api/ce/task?id=AY2LHHYs3Bx0CXKSR_BY
+[INFO] Analysis total time: 6.209 s
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  7.287 s
-[INFO] Finished at: 2024-02-08T22:28:47Z
+[INFO] Total time:  9.859 s
+[INFO] Finished at: 2024-02-08T23:45:14Z
 [INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Build & Push to dockerhub)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ /var/lib/jenkins/tools/org.jenkinsci.plugins.docker.commons.tools.DockerTool/docker/bin/docker login -u dappyplay4u -p ******** https://index.docker.io/v1/
+Login Succeeded
+[Pipeline] {
+[Pipeline] sh
++ cd spring-boot-app
++ docker build -t minecraft .
+Sending build context to Docker daemon  110.1kB
+
+Step 1/8 : FROM ubuntu:22.04
+ ---> fd1d8f58e8ae
+Step 2/8 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Using cache
+ ---> 1fb87e47a43e
+Step 3/8 : WORKDIR /minecraft
+ ---> Using cache
+ ---> 0c2b95ee20f4
+Step 4/8 : RUN apt-get update && apt-get install -y     openjdk-17-jdk     wget     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 36c5200aadef
+Step 5/8 : RUN wget -O server.jar https://piston-data.mojang.com/v1/objects/8dd1a28015f51b1803213892b50b7b4fc76e594d/server.jar
+ ---> Using cache
+ ---> d768a4eff75f
+Step 6/8 : RUN echo "eula=true" > eula.txt
+ ---> Using cache
+ ---> 8cb5d71d7e75
+Step 7/8 : EXPOSE 25565
+ ---> Using cache
+ ---> 952a4b521881
+Step 8/8 : CMD ["java", "-Xmx1024M", "-Xms1024M", "-jar", "server.jar", "nogui"]
+ ---> Using cache
+ ---> 446fd23b5b18
+Successfully built 446fd23b5b18
+Successfully tagged minecraft:latest
+[Pipeline] sh
++ docker tag minecraft dappyplay4u/minecraft:latest
+[Pipeline] sh
++ docker push dappyplay4u/minecraft:latest
+The push refers to repository [docker.io/dappyplay4u/minecraft]
+0cd463dd9179: Preparing
+53c56d4119a9: Preparing
+fd591a8d366f: Preparing
+866d369b51ca: Preparing
+1a102d1cac2b: Preparing
+0cd463dd9179: Layer already exists
+1a102d1cac2b: Layer already exists
+fd591a8d366f: Layer already exists
+53c56d4119a9: Layer already exists
+866d369b51ca: Layer already exists
+latest: digest: sha256:729c822cce8a456bfb53742d4612187a53f2292674cc0eae806b5d11a8c1ce3b size: 1368
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to container)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker run -d -p 8095:8088 dappyplay4u/minecraft:latest
+8ba6ac4db3af15e2679629434567bece11991abd688cbf801f705af336b050b3
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install kubectl)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ KUBECTL_VERSION=v1.24.0
++ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.24.0/bin/linux/amd64/kubectl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 43.5M  100 43.5M    0     0  85.3M      0 --:--:-- --:--:-- --:--:-- 85.4M
++ sudo chmod +x kubectl
++ sudo mv kubectl /usr/local/bin/
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to EKS)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ sed -i s/replaceImageTag/2/g k8s-manifests/deployment.yaml
+[Pipeline] sh
++ sed -i s/replaceImageTag/2/g k8s-manifests/service.yaml
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/minecraft-deployment/k8s-manifests
+[Pipeline] {
+[Pipeline] sh
++ aws eks update-kubeconfig --name minecraft-eks-cluster --region us-east-1
+Updated context arn:aws:eks:us-east-1:568170370118:cluster/minecraft-eks-cluster in /var/lib/jenkins/.kube/config
+[Pipeline] sh
++ kubectl apply -f .
+deployment.apps/minecraft created
+service/minecraft-app-service created
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (approve destroy for terraform)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] input
+Do you want to Proceed to destroy terraform resources
+Proceed or Abort
+k8s-manifests/Screenshot 2024-02-08 172944.png k8s-manifests/Screenshot 2024-02-08 173002.png k8s-manifests/Screenshot 2024-02-08 173819.png k8s-manifests/Screenshot 2024-02-08 174439.png k8s-manifests/Screenshot 2024-02-08 174516.png k8s-manifests/Screenshot 2024-02-08 185033.png
