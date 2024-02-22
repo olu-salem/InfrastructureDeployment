@@ -87,28 +87,6 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
     - Click on **New Item**
     - Enter an item name: **app-infra-pipeline** & select the category as **Pipeline**
     - Now scroll-down and in the Pipeline section --> Definition --> Select Pipeline script from SCM
-    
-# Step 7: Credentials setup(Slack):
-   ## Navigate to your slack app and create a new channel and click create a channel
-       1) Name: Ikechukwu-devops
-         - Discription: Ikechukwu-devops
-	 - Click on create
-	 you can Add users by Name or Email Address
-	 
-       2) Click on the Slack Name on the Top left corner
-       	  - Select Administration and then select manage App
-	  - Search for Jenkins CI and click Add
-	  - click on the dropdown, select your channel and click Add Jenkins CI integration             
-
-     3)  #### Configure system:
-            - Click on Manage Jenkins --> Configure System
-            1)  - Go to section Slack
-                - Workspace: **devops-fully-automated
-                - Credentials: click on Add >> Jenkins >> select secret text >> under secret, copy and pasta the Token from the slcak setup page
-		- ID: slack-token
-		- Description: slack-token
-		- click Add and then select secret text.
-		- Default channel: Ikechukwu-devops, test connection and the click save and apply.
 
 #### Create Credentials for connecting to Kubernetes Cluster using kubeconfig **
 
