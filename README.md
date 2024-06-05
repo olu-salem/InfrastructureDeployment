@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Jenkins Complete CI/CD Pipeline Environment Setup 
 ## Note: The source code for this demo was configured to work in hte us-east-1 region. To deploy this on another region,
 - open the source code using VS CODE, 
@@ -211,3 +212,6 @@ Once both the above steps are done click on Save.
 - modify security group to allow all inbound traffic from 30080 (The sample app deployed in the cluster is exposed using a NodepOrt service and the nodePort is 30080)
 - copy pulic ip of the cluster worker server and and run on browser. you need to add a colon and the nodePort number in order to access the application on the browser e.g http://example_ip:30080
 #
+=======
+# InfrastructureDeployment
+>>>>>>> 40358ca58e12c2133ee8669603e3fe86b00db5a9
