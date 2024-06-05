@@ -1,7 +1,7 @@
 #configure aws profile
 provider "aws" {
   region  = "us-east-1"
-  profile = "minecraft"
+  profile = "devops-lead"
 }
 
 # create vpc
@@ -119,7 +119,7 @@ resource "aws_instance" "jenkins_server" {
   ami                    = data.aws_ami.amazon_linux_2.id
   instance_type          = "t2.large"
   subnet_id              = aws_subnet.public_subnet_az2.id
-  key_name               = "postgreskey"
+  key_name               = "devopskeypair"
   user_data              = file("jenkins-maven-ansible-setup.sh")
   vpc_security_group_ids = [aws_security_group.jenkins_security_group.id]
   iam_instance_profile = aws_iam_instance_profile.jenkins_instance_profile.name
@@ -202,7 +202,7 @@ resource "aws_instance" "Nexus_server" {
   ami = data.aws_ami.amazon_linux_2.id
   instance_type = "t2.medium"
   subnet_id = aws_subnet.public_subnet_az1.id
-  key_name = "postgreskey"
+  key_name = "devopskeypair"
   vpc_security_group_ids = [aws_security_group.jenkins_security_group.id]
   user_data              = file("nexus-setup.sh")
   tags = {
@@ -224,7 +224,7 @@ resource "aws_instance" "Prometheus_server" {
   ami = data.aws_ami.amazon_linux_2.id
   instance_type = "t2.micro"
   subnet_id = aws_subnet.public_subnet_az2.id
-  key_name = "postgreskey"
+  key_name = "devopskeypair"
   vpc_security_group_ids = [aws_security_group.jenkins_security_group.id]
   user_data              = file("prometheus-setup.sh")
   tags = {
@@ -245,7 +245,7 @@ resource "aws_instance" "Grafana_server" {
   ami = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   subnet_id = aws_subnet.public_subnet_az1.id
-  key_name = "postgreskey"
+  key_name = "devopskeypair"
   vpc_security_group_ids = [aws_security_group.jenkins_security_group.id]
   user_data              = file("grafana-setup.sh")
   tags = {
@@ -266,7 +266,7 @@ resource "aws_instance" "SonaQube_server" {
   ami = data.aws_ami.ubuntu.id
   instance_type = "t2.medium"
   subnet_id = aws_subnet.public_subnet_az2.id
-  key_name = "postgreskey"
+  key_name = "devopskeypair"
   vpc_security_group_ids = [aws_security_group.jenkins_security_group.id]
   user_data              = file("SonaQube-setup.sh")
   tags = {
